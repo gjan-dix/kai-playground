@@ -1,0 +1,35 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-fit-small
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+value: 100
+globalDefault: false
+preemptionPolicy: Never
+description: "AIFlow priority-and-fit POC: small, non-preemptible in KAI v0.18.6"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-fit-large
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+value: 200
+globalDefault: false
+preemptionPolicy: Never
+description: "AIFlow priority-and-fit POC: large, non-preemptible in KAI v0.18.6"
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-fit-holder
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+value: 300
+globalDefault: false
+preemptionPolicy: Never
+description: "AIFlow priority-and-fit POC: holder, non-preemptible in KAI v0.18.6"

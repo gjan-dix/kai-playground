@@ -1,0 +1,24 @@
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-consolidation-train
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: consolidation
+value: 50
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority
+description: AIFlow consolidation POC train
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-consolidation-protected
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: consolidation
+value: 125
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority
+description: AIFlow consolidation POC protected

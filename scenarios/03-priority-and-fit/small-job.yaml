@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fit-small-job
+  namespace: kai-poc
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+    poc.aiflow/role: fit-waiter
+    kai.scheduler/queue: aiflow-poc-fit
+spec:
+  schedulerName: kai-scheduler
+  priorityClassName: aiflow-poc-fit-small
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  nodeSelector:
+    run.ai/simulated-gpu-node-pool: default
+  containers:
+    - name: hold
+      image: busybox:1.37.0
+      command: ["sh", "-c"]
+      args: ["echo 'fit-small-job: holding 1 simulated GPUs, no CUDA computation'; exec sleep 86400"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+          nvidia.com/gpu: 1
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          nvidia.com/gpu: 1

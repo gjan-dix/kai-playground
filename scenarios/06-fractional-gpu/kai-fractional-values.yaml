@@ -1,0 +1,23 @@
+---
+scheduler:
+  placementStrategy: binpack
+  args:
+    v: '3'
+  plugins:
+    minruntime:
+      enabled: false
+  actions:
+    consolidation:
+      enabled: false
+    preempt:
+      enabled: false
+    reclaim:
+      enabled: false
+global:
+  gpuSharingMode: NonMemoryEnforced
+  nvFractions:
+    set: false
+admission:
+  gpuFractionRuntimeClassName: ''
+binder:
+  runtimeClassName: ''

@@ -1,0 +1,24 @@
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-fractional-train
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: fractional
+value: 50
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority
+description: AIFlow fractional POC train
+---
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: aiflow-poc-fractional-protected
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: fractional
+value: 125
+globalDefault: false
+preemptionPolicy: PreemptLowerPriority
+description: AIFlow fractional POC protected

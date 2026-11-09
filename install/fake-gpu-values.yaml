@@ -1,0 +1,67 @@
+# Fake GPU Operator Helm chart 0.2.1 / Kubernetes v1.36.1 / linux/arm64.
+# Source: https://github.com/run-ai/fake-gpu-operator/blob/v0.2.1/deploy/fake-gpu-operator/values.yaml
+# This file configures simulated resources; it does not provide GPU computation.
+# Label only desktop-worker, desktop-worker2 and desktop-worker3 with:
+#   run.ai/simulated-gpu-node-pool=default
+# With all three workers labeled, expected capacity is 4 GPUs each / 12 total.
+
+environment:
+  openshift: false
+  resourceReservationNamespace: kai-resource-reservation
+
+topology:
+  nodePoolLabelKey: run.ai/simulated-gpu-node-pool
+  nodePools:
+    default:
+      # Chart 0.2.1 supports this legacy pool format, normalized to fake GPUs.
+      # gpuMemory is simulated memory per device in MiB.
+      gpuProduct: Tesla-K80
+      gpuCount: 4
+      gpuMemory: 11441
+  migStrategy: none
+
+devicePlugin:
+  enabled: true
+
+topologyServer:
+  enabled: true
+
+statusUpdater:
+  enabled: true
+  # Keep node pool membership under explicit control via the labels above.
+  disableNodeLabeling: false
+  podPatchRbac:
+    enabled: true
+  runaiIntegration:
+    enabled: false
+
+statusExporter:
+  enabled: true
+  nodeResourceTopology:
+    enabled: false
+    installCRD: false
+  podResources:
+    enabled: false
+  kwok:
+    prometheusRule:
+      enabled: false
+
+# Start with integer GPU requests on real kind nodes, without KWOK/DRA/MIG.
+kwokGpuDevicePlugin:
+  enabled: false
+kwokDraPlugin:
+  enabled: false
+kwokComputeDomainDraPlugin:
+  enabled: false
+draPlugin:
+  enabled: false
+computeDomainDraPlugin:
+  enabled: false
+migFaker:
+  enabled: false
+
+# No physical NVIDIA GPU stack or driver installation in this POC.
+gpuOperator:
+  enabled: false
+nvidiaDraDriver:
+  enabled: false

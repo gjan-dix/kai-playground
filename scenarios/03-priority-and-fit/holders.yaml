@@ -1,0 +1,135 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fit-holder-a
+  namespace: kai-poc
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+    poc.aiflow/role: fit-holder
+    kai.scheduler/queue: aiflow-poc-fit
+spec:
+  schedulerName: kai-scheduler
+  priorityClassName: aiflow-poc-fit-holder
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  nodeSelector:
+    run.ai/simulated-gpu-node-pool: default
+    kubernetes.io/hostname: desktop-worker
+  containers:
+    - name: hold
+      image: busybox:1.37.0
+      command: ["sh", "-c"]
+      args: ["echo 'fit-holder-a: holding 3 simulated GPUs, no CUDA computation'; exec sleep 86400"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+          nvidia.com/gpu: 3
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          nvidia.com/gpu: 3
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fit-holder-b
+  namespace: kai-poc
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+    poc.aiflow/role: fit-holder
+    kai.scheduler/queue: aiflow-poc-fit
+spec:
+  schedulerName: kai-scheduler
+  priorityClassName: aiflow-poc-fit-holder
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  nodeSelector:
+    run.ai/simulated-gpu-node-pool: default
+    kubernetes.io/hostname: desktop-worker
+  containers:
+    - name: hold
+      image: busybox:1.37.0
+      command: ["sh", "-c"]
+      args: ["echo 'fit-holder-b: holding 1 simulated GPUs, no CUDA computation'; exec sleep 86400"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+          nvidia.com/gpu: 1
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          nvidia.com/gpu: 1
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fit-holder-c
+  namespace: kai-poc
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+    poc.aiflow/role: fit-holder
+    kai.scheduler/queue: aiflow-poc-fit
+spec:
+  schedulerName: kai-scheduler
+  priorityClassName: aiflow-poc-fit-holder
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  nodeSelector:
+    run.ai/simulated-gpu-node-pool: default
+    kubernetes.io/hostname: desktop-worker2
+  containers:
+    - name: hold
+      image: busybox:1.37.0
+      command: ["sh", "-c"]
+      args: ["echo 'fit-holder-c: holding 4 simulated GPUs, no CUDA computation'; exec sleep 86400"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+          nvidia.com/gpu: 4
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          nvidia.com/gpu: 4
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fit-holder-d
+  namespace: kai-poc
+  labels:
+    app.kubernetes.io/part-of: aiflow-kai-poc
+    poc.aiflow/scenario: priority-and-fit
+    poc.aiflow/role: fit-holder
+    kai.scheduler/queue: aiflow-poc-fit
+spec:
+  schedulerName: kai-scheduler
+  priorityClassName: aiflow-poc-fit-holder
+  automountServiceAccountToken: false
+  restartPolicy: Never
+  terminationGracePeriodSeconds: 5
+  nodeSelector:
+    run.ai/simulated-gpu-node-pool: default
+    kubernetes.io/hostname: desktop-worker3
+  containers:
+    - name: hold
+      image: busybox:1.37.0
+      command: ["sh", "-c"]
+      args: ["echo 'fit-holder-d: holding 4 simulated GPUs, no CUDA computation'; exec sleep 86400"]
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+          nvidia.com/gpu: 4
+        limits:
+          cpu: 100m
+          memory: 64Mi
+          nvidia.com/gpu: 4
